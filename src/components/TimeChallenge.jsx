@@ -1,19 +1,19 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 export default function TimeChallenge({ title, targetTime }) {
   const [timerExpired, setTimerExpired] = useState(false);
   const [timerStarted, setTimerStarted] = useState(false);
 
-  let timer;
+  const timer = useRef();
 
   function handleStart() {
-    timer = setTimeout(() => {
+    timer.current = setTimeout(() => {
       setTimerExpired(true);
     }, targetTime * 1000);
     setTimerStarted(true);
   }
 
   function handleStop() {
-    clearTimeout(timer);
+    clearTimeout(timer.current);
   }
 
   return <section className="challenge">
